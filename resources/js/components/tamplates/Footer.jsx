@@ -2,6 +2,7 @@ import React from "react";
 import Social from "../s-img/Social.png";
 
 const Footer = () => {
+  // footer
   return (
     <div className="bg-[#2E2100] pt-[96px] px-[135px]">
       <div className="flex flex-row items-start justify-between max-w-[1200px] h-[211px] px-2 mx-auto">
