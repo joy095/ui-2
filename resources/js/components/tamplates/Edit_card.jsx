@@ -64,7 +64,7 @@ const Edit_card = () => {
                       alt="not found"
                       loading="lazy"
                     />
-                    <input
+                    <textarea
                       className="block w-full text-sm text-slate-500
                                     file:mr-4 file:py-2 file:px-4
                                     file:rounded-full file:border-0
@@ -81,31 +81,34 @@ const Edit_card = () => {
                     scope="row"
                     className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    <input
+                    <textarea
                       className="outline-slate-300"
                       type="text"
                       name=""
                       id=""
                       value={data.p_name}
+                      readOnly
                     />
                   </th>
                   <td className="py-4 px-6">
-                    <input
+                    <textarea
                       className="outline-slate-300"
                       type="text"
                       name=""
                       id=""
                       value={data.details}
+                      readOnly
                     />
                   </td>
                   <td className="py-4 px-6">
                     $
-                    <input
+                    <textarea
                       className="outline-slate-300"
                       type="text"
                       name=""
                       id=""
                       value={data.price}
+                      readOnly
                     />
                   </td>
                   <td className="py-4 px-6">

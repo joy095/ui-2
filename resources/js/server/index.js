@@ -1,6 +1,8 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 const app = express();
 const port = 5000;
 
@@ -14,34 +16,42 @@ const con = mysql.createConnection({
   database: "task_ui",
 });
 
-con.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    // console.log("Connected");
-  }
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./image");
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 
-app.get("/fetch", (rq, res) => {
-  con.query("SELECT * FROM ui_5", function (err, result, fields) {
+const upload = multer({ storage: storage });
+app.get("/fetch", (req, res) => {
+  con.query("SELECT * FROM `ui-5`", (err, result) => {
     if (err) {
       console.log(err);
     } else {
       res.send(result);
-      // console.log(JSON.parse(JSON.stringify(result)));
     }
   });
 });
 
-app.post("/post", (rq, res) => {
+app.post("/post", upload.single("image"), (req, res) => {
+  const name = req.body.name;
+  const price = req.body.price;
+  const details = req.body.details;
+  const image = req.body.image;
+
   con.query(
-    "INSERT INTO `ui-5`(`price`, `p_name`, `details`) VALUES ('price','p_name','details')",
-    function (err, result, fields) {
+    "INSERT INTO `ui-5`(image,price, p_name, details) VALUES (?,?,?,?)",
+    [image, price, name, details],
+
+    (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
-        // console.log(JSON.parse(JSON.stringify(result)));
+        res.send("Value Inserted");
       }
     }
   );
@@ -51,6 +61,6 @@ app.listen(port, (err) => {
   if (err) {
     console.log(err);
   } else {
-    console.log("port 5000");
+    console.log(`running on port on ${port}`);
   }
 });

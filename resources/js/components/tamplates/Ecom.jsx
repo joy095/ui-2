@@ -11,7 +11,7 @@ const Ecom = () => {
     axios
       .get("http://localhost:5000/fetch")
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         setPosts(res.data);
       })
       .catch((err) => {
@@ -30,27 +30,28 @@ const Ecom = () => {
         </Link>
 
         <Carousel
+          className="max-w-[1200px]"
           responsiveLayout={[
             {
               breakpoint: 1200,
-              cols: 6,
+              cols: 4,
             },
             {
               breakpoint: 990,
-              cols: 5,
+              cols: 3,
             },
           ]}
           mobileBreakpoint={670}
           rows={1}
           loop
-          cols={8}
+          cols={3}
         >
           {posts.map((data) => (
             <Carousel.Item key={data.id}>
               <div className="flex flex-row items-center max-w-[1200px] justify-center gap-y-[55px] h-[600px] mx-auto">
                 <figure className="rounded-xl xl:w-[370px] md:w-[320px] sm:[290px] xl:h-[466px] md:h-[400px] sm:h-[350px] bg-[#9fd0ce9f]">
                   <img
-                    className="object-cover"
+                    className="object-cover rounded-t-xl h-[273px] w-[370px]"
                     src={data.image}
                     alt="not found"
                     loading="lazy"
